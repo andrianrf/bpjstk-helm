@@ -1,0 +1,48 @@
+{{ if .Values.backofficeBe.enabled }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backoffice-be
+  name: backoffice-be
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backoffice-be
+  template:
+    metadata:
+      labels:
+        app: backoffice-be
+    spec:
+      containers:
+        - image: andrianrf/backoffice-be:latest
+          imagePullPolicy: IfNotPresent
+          name: backoffice-be
+          ports:
+            - containerPort: 8089
+          resources: {}
+          envFrom:
+            - configMapRef:
+                name: bpjstk-cm
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backoffice-be
+  labels:
+    app: backoffice-be
+spec:
+  type: ClusterIP
+  selector:
+    app: backoffice-be
+  ports:
+    - name: 8089-tcp
+      protocol: TCP
+      port: 8089
+      targetPort: 8089
+      
+{{- end }}

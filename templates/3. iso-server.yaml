@@ -1,0 +1,45 @@
+{{- if .Values.isoClient.isoServer.enabled -}}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: iso-server
+  name: iso-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iso-server
+  template:
+    metadata:
+      labels:
+        app: iso-server
+    spec:
+      containers:
+        - image: andrianrf/iso-server:latest
+          imagePullPolicy: IfNotPresent
+          name: iso-server
+          ports:
+            - containerPort: 8828
+          resources: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: iso-server
+  labels:
+    app: iso-server
+spec:
+  type: ClusterIP
+  selector:
+    app: iso-server
+  ports:
+    - name: 8828-tcp
+      protocol: TCP
+      port: 8828
+      targetPort: 8828
+
+{{- end }}

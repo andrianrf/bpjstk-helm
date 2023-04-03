@@ -1,0 +1,53 @@
+database:
+  host: "oracle-db"
+  port: "1521"
+  sid: "XE"
+  username: "BPJSTK"
+  password: "P4ssw0rd"
+
+oracleDb:
+  enabled: true
+  pvEnabled: true
+  pvHostPath: "/d/docker-volume/oracle-xe/oradata"
+
+isoClient:
+  enabled: true
+  isoServer:
+    enabled: true
+  isoServerUrl: "iso-server"
+  isoServerPort: "8828"
+
+bpjstkService:
+  enabled: true
+  bpjstkSimulator:
+    enabled: true
+  bpjstkUri: "http://bpjstk-simulator:8090/ws"
+  bpjstkUsername: "admin"
+  bpjstkPassword: "password"
+  vlinkUrl: "http://iso-client:8100/pembayaran-bpjstk"
+  vlinkAccountAdminFee: "11111111111"
+  vlinkAccountJht: "22222222222"
+  vlinkAccountJkk: "33333333333"
+  vlinkAccountJkm: "44444444444"
+  vlinkAccountJpk: "55555555555"
+  vlinkAccountJpn: "66666666666"
+  vlinkNoteTotalIuran: "Total Iuran BPJSTK"
+  vlinkNoteAdminFee: "Admin Fee Bank BPJSTK"
+  vlinkNoteJht: "Iuran JHT BPJSTK"
+  vlinkNoteJkk: "Iuran JKK BPJSTK"
+  vlinkNoteJkm: "Iuran JKM BPJSTK"
+  vlinkNoteJpk: "Iuran JPK BPJSTK"
+  vlinkNoteJpn: "Iuran JPN BPJSTK"
+  springJpaHibernateDdlAuto: "none"
+
+backofficeBe:
+  enabled: true
+
+backoffice:
+  enabled: true
+
+ingressBackoffice:
+  enabled: true
+
+
+

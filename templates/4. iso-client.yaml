@@ -1,0 +1,53 @@
+{{- if .Values.isoClient.enabled -}}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: iso-client
+  name: iso-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iso-client
+  template:
+    metadata:
+      labels:
+        app: iso-client
+    spec:
+      containers:
+        - image: andrianrf/iso-client:latest
+          imagePullPolicy: IfNotPresent
+          name: iso-client
+          ports:
+            - containerPort: 8100
+          resources: {}
+          envFrom:
+            - configMapRef:
+                name: bpjstk-cm
+          env:
+            - name: "isoServerUrl"
+              value: "{{ .Values.isoClient.isoServerUrl }}"
+            - name: "isoServerPort"
+              value: "{{ .Values.isoClient.isoServerPort }}"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: iso-client
+  labels:
+    app: iso-client
+spec:
+  type: ClusterIP
+  selector:
+    app: iso-client
+  ports:
+    - name: 8100-tcp
+      protocol: TCP
+      port: 8100
+      targetPort: 8100
+
+{{- end }}
