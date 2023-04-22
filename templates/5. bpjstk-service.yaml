@@ -22,7 +22,6 @@ spec:
           name: bpjstk-service
           ports:
             - containerPort: 8091
-          resources: {}
           envFrom:
             - configMapRef:
                 name: bpjstk-cm
@@ -63,6 +62,20 @@ spec:
               value: "{{ .Values.bpjstkService.vlinkNoteJpn }}"
             - name: "springJpaHibernateDdlAuto"
               value: "{{ .Values.bpjstkService.springJpaHibernateDdlAuto }}"
+          resources:
+            requests:
+              memory: "0Mi"
+              cpu: "0m"
+            limits:
+              memory: "300Mi"
+              cpu: "250m"
+          readinessProbe:
+            httpGet:
+              path: /bpjstk-service/actuator/health
+              port: 8091
+            initialDelaySeconds: 195
+            periodSeconds: 15
+            failureThreshold: 3
 
 ---
 

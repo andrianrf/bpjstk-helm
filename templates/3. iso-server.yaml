@@ -22,7 +22,20 @@ spec:
           name: iso-server
           ports:
             - containerPort: 8828
-          resources: {}
+          resources:
+            requests:
+              memory: "0Mi"
+              cpu: "0m"
+            limits:
+              memory: "300Mi"
+              cpu: "250m"
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 81
+            initialDelaySeconds: 195
+            periodSeconds: 15
+            failureThreshold: 3
 
 ---
 

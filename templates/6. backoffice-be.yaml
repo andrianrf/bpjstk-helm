@@ -22,10 +22,23 @@ spec:
           name: backoffice-be
           ports:
             - containerPort: 8089
-          resources: {}
           envFrom:
             - configMapRef:
                 name: bpjstk-cm
+          resources:
+            requests:
+              memory: "0Mi"
+              cpu: "0m"
+            limits:
+              memory: "300Mi"
+              cpu: "250m"
+          readinessProbe:
+            httpGet:
+              path: /va-tools-be/actuator/health
+              port: 8089
+            initialDelaySeconds: 195
+            periodSeconds: 15
+            failureThreshold: 3
 
 ---
 

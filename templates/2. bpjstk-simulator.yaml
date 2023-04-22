@@ -22,10 +22,23 @@ spec:
           name: bpjstk-simulator
           ports:
             - containerPort: 8090
-          resources: {}
           envFrom:
             - configMapRef:
                 name: bpjstk-cm
+          resources:
+            requests:
+              memory: "0Mi"
+              cpu: "0m"
+            limits:
+              memory: "300Mi"
+              cpu: "250m"
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8090
+            initialDelaySeconds: 195
+            periodSeconds: 15
+            failureThreshold: 3
 
 ---
 
