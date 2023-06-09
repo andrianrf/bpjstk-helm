@@ -10,6 +10,7 @@ This application consists of several services, namely:
 7. backoffice-be : backend interface backoffice
 
 Following are the steps to run this service :
+kubectl create namespace bpjstk-service
 helm repo add bpjstk-service https://andrianrf.github.io/bpjstk-helm/charts/
 helm install bpjstk-service . --namespace=bpjstk-service --values https://andrianrf.github.io/bpjstk-helm/values.yaml
 
