@@ -1,5 +1,5 @@
 apiVersion: v2
-name: bpjstk-helm
+name: bpjstk-service
 description: A Helm chart BPJSTK for Kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.
