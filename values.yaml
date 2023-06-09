@@ -7,7 +7,7 @@ database:
 
 oracleDb:
   enabled: true
-  pvEnabled: true
+  pvEnabled: false
   pvHostPath: "/d/docker-volume/oracle-xe/oradata"
 
 isoClient:
