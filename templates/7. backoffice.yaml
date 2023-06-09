@@ -5,71 +5,68 @@ kind: ConfigMap
 metadata:
   name: backoffice-nginx-config
 data:
-  backoffice.conf: "server {\r\n    listen 8080 default_server;\r\n    server_name
-    localhost;\r\n    root /usr/share/nginx/html;\r\n    index index.html;\r\n\r\n
-    \   gzip on;\r\n    gzip_disable \"msie6\";\r\n\r\n    gzip_vary on;\r\n    gzip_proxied
-    any;\r\n    gzip_comp_level 9;\r\n    gzip_buffers 16 8k;\r\n    gzip_http_version
-    1.1;\r\n    gzip_min_length 0;\r\n    gzip_types text/plain application/javascript
-    text/css application/json application/x-javascript text/xml application/xml application/xml+rss
-    text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype;\r\n\r\n
-    \   location / {\r\n  return 301 /backoffice;\r\n    }\r\n\r\n    location /backoffice
-    {\r\n        try_files $uri $uri/backoffice /backoffice/index.html;\r\n    }\r\n\r\n
-    \   location /va-tools-be {\r\n        proxy_pass http://backoffice-be:8089;\r\n
-    \       proxy_set_header    Host               $host;\r\n        proxy_set_header
-    \   X-Real-IP          $remote_addr;\r\n        proxy_set_header    X-Forwarded-For
-    \   $proxy_add_x_forwarded_for;\r\n        proxy_set_header    X-Forwarded-Host
-    \  $host;\r\n        proxy_set_header    X-Forwarded-Server $host;\r\n        proxy_set_header
-    \   X-Forwarded-Port   $server_port;\r\n        proxy_set_header    X-Forwarded-Proto
-    \ $scheme;\r\n    }\r\n   \r\n    # location /va-gateway/1.0/transfer-va {\r\n
-    \   #     proxy_pass http://va-gateway.va.svc.cluster.local:8081;\r\n    #     proxy_set_header
-    \   Host               $host;\r\n    #     proxy_set_header    X-Real-IP          $remote_addr;\r\n
-    \   #     proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;\r\n
-    \   #     proxy_set_header    X-Forwarded-Host   $host;\r\n    #     proxy_set_header
-    \   X-Forwarded-Server $host;\r\n    #     proxy_set_header    X-Forwarded-Port
-    \  $server_port;\r\n    #     proxy_set_header    X-Forwarded-Proto  $scheme;\r\n
-    \   # }\r\n   \r\n    # location /api/providers {\r\n    #     proxy_pass http://provider-service:8081;\r\n
-    \   #     proxy_set_header    Host               $host;\r\n    #     proxy_set_header
-    \   X-Real-IP          $remote_addr;\r\n    #     proxy_set_header    X-Forwarded-For
-    \   $proxy_add_x_forwarded_for;\r\n    #     proxy_set_header    X-Forwarded-Host
-    \  $host;\r\n    #     proxy_set_header    X-Forwarded-Server $host;\r\n    #
-    \    proxy_set_header    X-Forwarded-Port   $server_port;\r\n    #     proxy_set_header
-    \   X-Forwarded-Proto  $scheme;\r\n    # }\r\n   \r\n    # location /api/inquiryTrxVA
-    {\r\n    #     proxy_pass http://tulip:8081;\r\n    #     proxy_set_header    Host
-    \              $host;\r\n    #     proxy_set_header    X-Real-IP          $remote_addr;\r\n
-    \   #     proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;\r\n
-    \   #     proxy_set_header    X-Forwarded-Host   $host;\r\n    #     proxy_set_header
-    \   X-Forwarded-Server $host;\r\n    #     proxy_set_header    X-Forwarded-Port
-    \  $server_port;\r\n    #     proxy_set_header    X-Forwarded-Proto  $scheme;\r\n
-    \   # }\r\n   \r\n    # location /api/executeTrxVA {\r\n    #     proxy_pass http://tulip:8081;\r\n
-    \   #     proxy_set_header    Host               $host;\r\n    #     proxy_set_header
-    \   X-Real-IP          $remote_addr;\r\n    #     proxy_set_header    X-Forwarded-For
-    \   $proxy_add_x_forwarded_for;\r\n    #     proxy_set_header    X-Forwarded-Host
-    \  $host;\r\n    #     proxy_set_header    X-Forwarded-Server $host;\r\n    #
-    \    proxy_set_header    X-Forwarded-Port   $server_port;\r\n    #     proxy_set_header
-    \   X-Forwarded-Proto  $scheme;\r\n    # }\r\n   \r\n    # location /api/inquiry-intrabank
-    {\r\n    #     proxy_pass http://tulip:8081;\r\n    #     proxy_set_header    Host
-    \              $host;\r\n    #     proxy_set_header    X-Real-IP          $remote_addr;\r\n
-    \   #     proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;\r\n
-    \   #     proxy_set_header    X-Forwarded-Host   $host;\r\n    #     proxy_set_header
-    \   X-Forwarded-Server $host;\r\n    #     proxy_set_header    X-Forwarded-Port
-    \  $server_port;\r\n    #     proxy_set_header    X-Forwarded-Proto  $scheme;\r\n
-    \   # }\r\n   \r\n    # location /api/transfer-va/payment-intrabank {\r\n    #
-    \    proxy_pass http://tulip:8081;\r\n    #     proxy_set_header    Host               $host;\r\n
-    \   #     proxy_set_header    X-Real-IP          $remote_addr;\r\n    #     proxy_set_header
-    \   X-Forwarded-For    $proxy_add_x_forwarded_for;\r\n    #     proxy_set_header
-    \   X-Forwarded-Host   $host;\r\n    #     proxy_set_header    X-Forwarded-Server
-    $host;\r\n    #     proxy_set_header    X-Forwarded-Port   $server_port;\r\n    #
-    \    proxy_set_header    X-Forwarded-Proto  $scheme;\r\n    # }\r\n\r\n    location
-    /bpjstk-service {\r\n        proxy_pass http://bpjstk-service:8091;\r\n        proxy_set_header
-    \   Host               $host;\r\n        proxy_set_header    X-Real-IP          $remote_addr;\r\n
-    \       proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;\r\n
-    \       proxy_set_header    X-Forwarded-Host   $host;\r\n        proxy_set_header
-    \   X-Forwarded-Server $host;\r\n        proxy_set_header    X-Forwarded-Port
-    \  $server_port;\r\n        proxy_set_header    X-Forwarded-Proto  $scheme;\r\n
-    \   }\r\n\r\n    location /static/ {\r\n      try_files\r\n        /backoffice$uri\r\n
-    \       =404;\r\n    }\r\n\r\n    error_page 404 /404.html;\r\n    location =
-    /404.html {\r\n    }\r\n\r\n    error_page 500 502 503 504 /50x.html;\r\n    location
-    = /50x.html {\r\n    }\r\n}\r\n"
+  backoffice.conf: |
+    server {
+      listen 8080 default_server;
+      server_name localhost;
+      root /usr/share/nginx/html;
+      index index.html;
+
+      gzip on;
+      gzip_disable "msie6";
+
+      gzip_vary on;
+      gzip_proxied any;
+      gzip_comp_level 9;
+      gzip_buffers 16 8k;
+      gzip_http_version 1.1;
+      gzip_min_length 0;
+      gzip_types text/plain application/javascript text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype;
+
+      location / {
+    return 301 /backoffice;
+      }
+
+      location /backoffice {
+          try_files $uri $uri/backoffice /backoffice/index.html;
+      }
+
+      location /backoffice-be {
+          proxy_pass http://backoffice-be:8089;
+          proxy_set_header    Host               $host;
+          proxy_set_header    X-Real-IP          $remote_addr;
+          proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;
+          proxy_set_header    X-Forwarded-Host   $host;
+          proxy_set_header    X-Forwarded-Server $host;
+          proxy_set_header    X-Forwarded-Port   $server_port;
+          proxy_set_header    X-Forwarded-Proto  $scheme;
+      }
+
+      location /bpjstk-service {
+          proxy_pass http://bpjstk-service:8091;
+          proxy_set_header    Host               $host;
+          proxy_set_header    X-Real-IP          $remote_addr;
+          proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;
+          proxy_set_header    X-Forwarded-Host   $host;
+          proxy_set_header    X-Forwarded-Server $host;
+          proxy_set_header    X-Forwarded-Port   $server_port;
+          proxy_set_header    X-Forwarded-Proto  $scheme;
+      }
+
+      location /static/ {
+        try_files
+          /backoffice$uri
+          =404;
+      }
+
+      error_page 404 /404.html;
+      location = /404.html {
+      }
+
+      error_page 500 502 503 504 /50x.html;
+      location = /50x.html {
+      }
+    }
 
 ---
 
