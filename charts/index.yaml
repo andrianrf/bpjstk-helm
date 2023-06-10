@@ -3,12 +3,12 @@ entries:
   bpjstk-service:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-03T20:03:36.8981409+07:00"
+    created: "2023-06-10T09:57:08.083598+07:00"
     description: A Helm chart BPJSTK for Kubernetes
-    digest: 05a3255cc4bcf2019a13c1935f1726f04d12fae92a963578aa8e15fc8a87d7e1
+    digest: db82af1f2311a807f355b7a81cfdbab3f2d9ec8898fb400734869086af9ccc7f
     name: bpjstk-service
     type: application
     urls:
     - bpjstk-service-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-03T20:03:36.8959394+07:00"
+generated: "2023-06-10T09:57:08.0754787+07:00"

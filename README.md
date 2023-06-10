@@ -14,3 +14,4 @@ kubectl create namespace bpjstk-service
 helm repo add bpjstk-service https://andrianrf.github.io/bpjstk-helm/charts/
 helm install bpjstk-service https://andrianrf.github.io/bpjstk-helm/charts/bpjstk-helm-0.1.0.tgz --namespace=bpjstk-service --values https://andrianrf.github.io/bpjstk-helm/values.yaml
 
+helm install bpjstk-service -n bpjstk-service -f https://andrianrf.github.io/bpjstk-helm/values.yaml https://andrianrf.github.io/bpjstk-helm/charts/bpjstk-helm-0.1.0.tgz
