@@ -1,26 +1,40 @@
 database:
-  host: "oracle-db"
+  host: "payment-teller.visiondg.xyz"
   port: "1521"
-  sid: "XE"
+  sid: "ORADB"
   username: "BPJSTK"
   password: "P4ssw0rd"
 
 oracleDb:
-  enabled: true
+  enabled: false
   pvEnabled: false
   pvHostPath: "/d/docker-volume/oracle-xe/oradata"
 
 isoClient:
   enabled: true
+  limits:
+    memory: "512Mi"
+    cpu: "1000m"
   isoServer:
     enabled: true
+    limits:
+      memory: "512Mi"
+      cpu: "1000m"
   isoServerUrl: "iso-server"
   isoServerPort: "8828"
+  springJpaHibernateDdlAuto: "update"
 
 bpjstkService:
   enabled: true
+  limits:
+    memory: "512Mi"
+    cpu: "1000m"
   bpjstkSimulator:
     enabled: true
+    limits:
+      memory: "512Mi"
+      cpu: "1000m"
+    springJpaHibernateDdlAuto: "update"
   bpjstkUri: "http://bpjstk-simulator:8090/ws"
   bpjstkUsername: "admin"
   bpjstkPassword: "password"
@@ -38,16 +52,21 @@ bpjstkService:
   vlinkNoteJkm: "Iuran JKM BPJSTK"
   vlinkNoteJpk: "Iuran JPK BPJSTK"
   vlinkNoteJpn: "Iuran JPN BPJSTK"
-  springJpaHibernateDdlAuto: "none"
+  springJpaHibernateDdlAuto: "update"
 
 backofficeBe:
   enabled: true
+  limits:
+    memory: "512Mi"
+    cpu: "1000m"
+  springJpaHibernateDdlAuto: "update"
 
 backoffice:
   enabled: true
-
-ingressBackoffice:
-  enabled: true
+  ingress:
+    enabled: true
+    rules:
+      host: backoffice-helm.docker.internal
 
 
 

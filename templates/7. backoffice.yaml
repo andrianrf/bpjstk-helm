@@ -6,30 +6,62 @@ metadata:
   name: backoffice-nginx-config
 data:
   backoffice.conf: |
-    server {
-      listen 8080 default_server;
-      server_name localhost;
-      root /usr/share/nginx/html;
-      index index.html;
+    worker_processes  auto;
 
-      gzip on;
-      gzip_disable "msie6";
+    error_log  /var/log/nginx/error.log notice;
+    pid        /var/cache/nginx/nginx.pid;
 
-      gzip_vary on;
-      gzip_proxied any;
-      gzip_comp_level 9;
-      gzip_buffers 16 8k;
-      gzip_http_version 1.1;
-      gzip_min_length 0;
-      gzip_types text/plain application/javascript text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype;
 
-      location / {
-    return 301 /backoffice;
-      }
+    events {
+        worker_connections  1024;
+    }
 
-      location /backoffice {
-          try_files $uri $uri/backoffice /backoffice/index.html;
-      }
+
+    http {
+        include       /etc/nginx/mime.types;
+        default_type  application/octet-stream;
+
+        log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                          '$status $body_bytes_sent "$http_referer" '
+                          '"$http_user_agent" "$http_x_forwarded_for"';
+
+        access_log  /var/log/nginx/access.log  main;
+
+        sendfile        on;
+        #tcp_nopush     on;
+
+        keepalive_timeout  65;
+
+        #gzip  on;
+
+        server {
+        # listen 8080 default_server ssl;
+        listen 8080 default_server;
+        server_name localhost;
+        root /usr/share/nginx/html;
+        index index.html;
+
+        # ssl_certificate /ssl/fullchain.pem; # managed by Certbot
+        # ssl_certificate_key /ssl/key.pem;
+
+        gzip on;
+        gzip_disable "msie6";
+
+        gzip_vary on;
+        gzip_proxied any;
+        gzip_comp_level 9;
+        gzip_buffers 16 8k;
+        gzip_http_version 1.1;
+        gzip_min_length 0;
+        gzip_types text/plain application/javascript text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype;
+
+        location / {
+      return 301 /backoffice;
+        }
+
+        location /backoffice {
+            try_files $uri $uri/backoffice /backoffice/index.html;
+        }
 
       location /backoffice-be {
           proxy_pass http://backoffice-be:8089;
@@ -52,20 +84,7 @@ data:
           proxy_set_header    X-Forwarded-Port   $server_port;
           proxy_set_header    X-Forwarded-Proto  $scheme;
       }
-
-      location /static/ {
-        try_files
-          /backoffice$uri
-          =404;
-      }
-
-      error_page 404 /404.html;
-      location = /404.html {
-      }
-
-      error_page 500 502 503 504 /50x.html;
-      location = /50x.html {
-      }
+    }
     }
 
 ---
@@ -101,7 +120,7 @@ spec:
               cpu: "250m"
           volumeMounts:
             - name: application-config
-              mountPath: "/etc/nginx/conf.d/nginx.conf"
+              mountPath: "/etc/nginx/nginx.conf"
               subPath: "nginx.conf"
               readOnly: true
       # kubectl create configmap backoffice-nginx-config --from-file="C:\\Users\\AndrianRF\\Desktop\bpjstk bsb\\deployment\\1. docker\\backoffice.conf"

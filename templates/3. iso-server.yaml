@@ -27,13 +27,13 @@ spec:
               memory: "0Mi"
               cpu: "0m"
             limits:
-              memory: "300Mi"
-              cpu: "250m"
+              memory: "{{ .Values.isoClient.isoServer.limits.memory }}"
+              cpu: "{{ .Values.isoClient.isoServer.limits.cpu }}"
           readinessProbe:
             httpGet:
               path: /actuator/health
               port: 81
-            initialDelaySeconds: 195
+            initialDelaySeconds: 120
             periodSeconds: 15
             failureThreshold: 3
 
