@@ -1,5 +1,5 @@
 database:
-  host: "oracle-db"
+  host: "payment-teller.visiondg.xyz"
   port: "1521"
   sid: "ORADB"
   username: "BPJSTK"
