@@ -29,15 +29,6 @@ spec:
             limits:
               memory: "{{ .Values.isoClient.isoServer.limits.memory }}"
               cpu: "{{ .Values.isoClient.isoServer.limits.cpu }}"
-          {{- if .Values.readinessProbe.enabled }}
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 81
-            initialDelaySeconds: 120
-            periodSeconds: 15
-            failureThreshold: 3
-          {{- end }}
 
 ---
 

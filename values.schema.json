@@ -223,14 +223,6 @@
                     "type": "string"
                 }
             }
-        },
-        "readinessProbe": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                }
-            }
         }
     }
 }
