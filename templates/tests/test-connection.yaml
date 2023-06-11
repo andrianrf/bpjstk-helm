@@ -1,9 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "bpjstk-helm.fullname" . }}-test-connection"
-  labels:
-    {{- include "bpjstk-helm.labels" . | nindent 4 }}
+  name: "bpjstk-service-test-connection"
   annotations:
     "helm.sh/hook": test
 spec:
@@ -11,5 +9,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "bpjstk-helm.fullname" . }}:{{ .Values.service.port }}']
+      args: ['backoffice:8080/backoffice']
   restartPolicy: Never
