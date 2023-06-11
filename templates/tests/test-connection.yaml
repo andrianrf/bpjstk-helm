@@ -7,7 +7,6 @@ metadata:
 spec:
   containers:
     - name: wget
-      image: busybox
-      command: ['wget']
-      args: ['backoffice:8080/backoffice']
+      image: docker.io/curlimages/curl:latest
+      command: ['curl', 'backoffice:8080/backoffice']
   restartPolicy: Never
