@@ -1,3 +1,6 @@
+readinessProbe:
+  enabled: false
+
 database:
   host: "payment-teller.visiondg.xyz"
   port: "1521"
