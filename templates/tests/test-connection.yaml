@@ -6,7 +6,10 @@ metadata:
     "helm.sh/hook": test
 spec:
   containers:
-    - name: wget
-      image: docker.io/curlimages/curl:latest
-      command: ['curl', 'backoffice:8080/backoffice']
+    - name: curl
+      image: registry.access.redhat.com/ubi8/ubi:latest
+      command:
+        - '/bin/bash'
+        - '-ec'
+        - curl http://backoffice:8080/backoffice
   restartPolicy: Never
